@@ -45,7 +45,6 @@ updateLighting(viewer);
  * @param {*} _viewer
  * @return {*}
  */
- */
 function updateLighting(_viewer) {
     // OSM标准风格地图
     const dayLayer = _viewer.imageryLayers.addImageryProvider(
@@ -65,7 +64,7 @@ function updateLighting(_viewer) {
     // 启用光照
     _viewer.scene.globe.enableLighting = true;
     _viewer.clock.shouldAnimate = true;
-    _viewer.clock.multiplier = 5000;
+    _viewer.clock.multiplier = 500;
     nightLayer.dayAlpha = 0.0;
 }
 
