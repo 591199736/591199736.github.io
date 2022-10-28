@@ -49,7 +49,7 @@
         </tbody>
       </table>
     </div>
-  <div id="cesiumContainer"></div>
+  <div id="cesiumContainer" class="fullSize"></div>
   <script>
     // Your access token can be found at: https://cesium.com/ion/tokens.
     // This is the default access token from your ion account
@@ -110,7 +110,7 @@ const fixedFrameTransform = Cesium.Transforms.localFrameToFixedFrameGenerator(
 
 const planePrimitive = scene.primitives.add(
   Cesium.Model.fromGltf({
-    url: "../Cesium_Air.glb",
+    url: "591199736.github.io/CesiumJS/Cesium_Air.glb",
     modelMatrix: Cesium.Transforms.headingPitchRollToFixedFrame(
       position,
       hpRoll,
