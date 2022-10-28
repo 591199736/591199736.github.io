@@ -28,13 +28,13 @@
       terrainProvider: Cesium.EllipsoidTerrainProvider()
     });    
     // Add Cesium OSM Buildings, a global 3D buildings layer.
-    //const buildingTileset = viewer.scene.primitives.add(Cesium.createOsmBuildings());   
+    const buildingTileset = viewer.scene.primitives.add(Cesium.createOsmBuildings());   
     //Fly the camera to San Francisco at the given longitude, latitude, and height.
     viewer.camera.flyTo({
       destination : Cesium.Cartesian3.fromDegrees(113.381, 23.064, 30000),
       orientation : {
         heading : Cesium.Math.toRadians(0.0),
-        pitch : Cesium.Math.toRadians(0.0),
+        pitch : Cesium.Math.toRadians(-10.0),
       }
     });
         updateLighting(viewer);
@@ -48,7 +48,7 @@
       )
       layer.dayAlpha = 0.0 //白天图层透明值
       layer.nightAlpha = 1.0 //夜晚图层透明值
-      layer.brightness = 3.5 //图层发光亮度
+      layer.brightness = 1.0 //图层发光亮度
 
       _viewer.scene.globe.enableLighting = true;//打开光照
       _viewer.clock.shouldAnimate = true;//时间轴动画
