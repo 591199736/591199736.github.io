@@ -56,11 +56,10 @@ function updateLighting(_viewer) {
 
     // OSM暗色系地图
     const nightLayer = _viewer.imageryLayers.addImageryProvider(
-      //new Cesium.ImageryLayer(
-      new Cesium.IonImageryProvider({
-            assetId: 3812
-             })
-      //)
+      new Cesium.UrlTemplateImageryProvider({
+         url: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png",
+         subdomains: ["a", "b", "c", "d"],
+     })
     );
     // 启用光照
     _viewer.scene.globe.enableLighting = true;
