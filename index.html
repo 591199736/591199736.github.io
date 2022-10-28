@@ -7,7 +7,7 @@
   <script src="https://cesium.com/downloads/cesiumjs/releases/1.98/Build/Cesium/Cesium.js"></script>
   <link href="https://cesium.com/downloads/cesiumjs/releases/1.98/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
 </head>
-<img scr="http://mms0.baidu.com/it/u=578000179,2513938638&fm=253&app=120&f=JPEG&fmt=auto&q=75?w=500&h=500"><h1>this is glh's world</h1>
+<img scr="img/1.gif"><h1>this is glh's world</h1>
 <body>
   <div id="cesiumContainer"></div>
   <script>
@@ -18,13 +18,13 @@
 
     // Initialize the Cesium Viewer in the HTML element with the `cesiumContainer` ID.
     const viewer = new Cesium.Viewer('cesiumContainer', {
-      terrainProvider: Cesium.EllipsoidTerrainProvider({requestVertexNormals: true})
+      terrainProvider: Cesium.EllipsoidTerrainProvider()
     });    
     // Add Cesium OSM Buildings, a global 3D buildings layer.
     const buildingTileset = viewer.scene.primitives.add(Cesium.createOsmBuildings());   
     // Fly the camera to San Francisco at the given longitude, latitude, and height.
     viewer.camera.flyTo({
-      destination : Cesium.Cartesian3.fromDegrees(113.380, 23.064, 200),
+      destination : Cesium.Cartesian3.fromDegrees(113.378, 23.064, 200),
       orientation : {
         heading : Cesium.Math.toRadians(-10.0),
         pitch : Cesium.Math.toRadians(-40.0),
