@@ -45,6 +45,7 @@ updateLighting(viewer);
  * @param {*} _viewer
  * @return {*}
  */
+ */
 function updateLighting(_viewer) {
     // OSM标准风格地图
     const dayLayer = _viewer.imageryLayers.addImageryProvider(
@@ -56,10 +57,10 @@ function updateLighting(_viewer) {
 
     // OSM暗色系地图
     const nightLayer = _viewer.imageryLayers.addImageryProvider(
-      new Cesium.UrlTemplateImageryProvider({
-         url: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png",
-         subdomains: ["a", "b", "c", "d"],
-     })
+        new Cesium.UrlTemplateImageryProvider({
+            url: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png",
+            subdomains: ["a", "b", "c", "d"],
+        })
     );
     // 启用光照
     _viewer.scene.globe.enableLighting = true;
