@@ -48,10 +48,10 @@ updateLighting(viewer);
 function updateLighting(_viewer) {
     // OSM标准风格地图
     const dayLayer = _viewer.imageryLayers.addImageryProvider(
-        //new Cesium.UrlTemplateImageryProvider({
-        //    url: 'https://tile-{s}.openstreetmap.fr/hot/{z}/{x}/{y}.png',
-        //    subdomains: ["a", "b", "c", "d"],
-        //})
+        new Cesium.UrlTemplateImageryProvider({
+            url: 'https://tile-{s}.openstreetmap.fr/hot/{z}/{x}/{y}.png',
+            subdomains: ["a", "b", "c", "d"],
+        })
     );
 
     // OSM暗色系地图
