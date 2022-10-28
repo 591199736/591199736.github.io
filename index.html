@@ -11,6 +11,9 @@
             /* 文字水平居中 */
             text-align: center;
         }
+        h1{
+        font-family: 'Bradley Hand';
+        }
     </style>
 </head>
 <body>
@@ -47,7 +50,7 @@
         })
       )
       layer.dayAlpha = 0.0 //白天图层透明值
-      layer.nightAlpha = 1.0 //夜晚图层透明值
+      layer.nightAlpha = 0.85 //夜晚图层透明值
       layer.brightness = 3.0 //图层发光亮度
 
       _viewer.scene.globe.enableLighting = true;//打开光照
@@ -55,7 +58,6 @@
       _viewer.clock.multiplier = 2000;//时间轴速度
       // nightLayer.dayAlpha = 0.0;
     }
-
 
   </script>
  </div>
