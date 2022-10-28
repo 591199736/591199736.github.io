@@ -33,7 +33,7 @@
     //const buildingTileset = viewer.scene.primitives.add(Cesium.createOsmBuildings());   
     //Fly the camera to San Francisco at the given longitude, latitude, and height.
     viewer.camera.flyTo({
-      destination : Cesium.Cartesian3.fromDegrees(15, 2, 30000000),
+      destination : Cesium.Cartesian3.fromDegrees(10, 0, 30000000),
       orientation : {
         heading : Cesium.Math.toRadians(0.0),
         pitch : Cesium.Math.toRadians(-90.0),
@@ -48,7 +48,7 @@
           url: 'img/bobi.jpg'
         })
       )
-      layer.dayAlpha = 0.1 //白天图层透明值
+      layer.dayAlpha = 0.01 //白天图层透明值
       layer.nightAlpha = 1 //夜晚图层透明值
       layer.brightness = 10.0//图层发光亮度
 
