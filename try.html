@@ -56,11 +56,7 @@
       _viewer.clock.shouldAnimate = true;//时间轴动画
       _viewer.clock.multiplier = 2000;//时间轴速度
       // nightLayer.dayAlpha = 0.0;
-    }
-
-    const viewer = new Cesium.Viewer("cesiumContainer", {
-  shouldAnimate: true,
-});
+    };
 
 Sandcastle.addDefaultToolbarButton("Satellites", function () {
   viewer.dataSources.add(
