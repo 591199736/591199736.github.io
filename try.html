@@ -58,30 +58,118 @@
       // nightLayer.dayAlpha = 0.0;
     };
 
-Sandcastle.addDefaultToolbarButton("Satellites", function () {
-  viewer.dataSources.add(
-    Cesium.CzmlDataSource.load("CesiumJS/simple.czml")
-  );
+    
+function mySatePosition() {
+    this.lon = 0;
+    this.lat = 0;
+    this.hei = 700000;          //卫星高度
+    this.phei = 700000 / 2;     //轨道高度
+    this.time = 0;
+  }
 
-  viewer.camera.flyHome(0);
-});
+  function computeCirclularFlight(source, panduan) {
+    var property = new Cesium.SampledPositionProperty();
+    if (panduan == 1) {         //卫星位置
+      for (var i = 0; i < source.length; i++) {
+        var time = Cesium.JulianDate.addSeconds(start, source[i].time, new Cesium.JulianDate);
+        var position = Cesium.Cartesian3.fromDegrees(source[i].lon, source[i].lat, source[i].hei);
+        // 添加位置，和时间对应
+        property.addSample(time, position);
+      }
+    } else if (panduan == 2) {//轨道位置
+      for (var i = 0; i < source.length; i++) {
+        var time = Cesium.JulianDate.addSeconds(start, source[i].time, new Cesium.JulianDate);
+        var position = Cesium.Cartesian3.fromDegrees(source[i].lon, source[i].lat, source[i].phei);
+        // 添加位置，和时间对应
+        property.addSample(time, position);
+      }
+    }
+    return property;
+  }
 
-Sandcastle.addToolbarButton("Vehicle", function () {
-  viewer.dataSources.add(
-    Cesium.CzmlDataSource.load("CesiumJS/Vehicle.czml")
-  );
+  function getRandState(brr, count) {
+    for (var m = 0; m < count; m++) {
+      var arr = [];
+      var t1 = Math.floor(Math.random() * 360);
+      var t2 = Math.floor(Math.random() * 360);
+      for (var i = t1; i <= 360 + t1; i += 30) {
+        var aaa = new mySatePosition();
+        aaa.lon = t2;
+        aaa.lat = i;
+        aaa.time = i - t1;
+        arr.push(aaa);
+      }
+      brr.push(arr);
+    }
+  }
 
-  viewer.scene.camera.setView({
-    destination: Cesium.Cartesian3.fromDegrees(-116.52, 35.02, 95000),
-    orientation: {
-      heading: 6,
-    },
-  });
-});
+  function getStatePath(aaa) {
+    var entity_ty1p = computeCirclularFlight(aaa, 2);
+    var entity_ty1 = viewer.entities.add({
+      availability: new Cesium.TimeIntervalCollection([new Cesium.TimeInterval({
+        start: start,
+        stop: stop
+      })]),
+      position: entity_ty1p,   //轨道高度
+      orientation: new Cesium.VelocityOrientationProperty(entity_ty1p),
+      cylinder: {
+        HeightReference: Cesium.HeightReference.CLAMP_TO_GROUND,
+        length: 700000,
+        topRadius: 0,
+        bottomRadius: 900000 / 2,
+        // material: Cesium.Color.RED.withAlpha(.4),
+        // outline: !0,
+        numberOfVerticalLines: 0,
+        // outlineColor: Cesium.Color.RED.withAlpha(.8),
+        material: Cesium.Color.fromBytes(35, 170, 242, 80)
+      },
+    });
 
-Sandcastle.reset = function () {
-  viewer.dataSources.removeAll();
-};
+    entity_ty1.position.setInterpolationOptions({
+      interpolationDegree: 5,
+      interpolationAlgorithm: Cesium.LagrangePolynomialApproximation
+    });
+
+    var entity1p = computeCirclularFlight(aaa, 1);
+    //创建实体
+    var entity1 = viewer.entities.add({
+      // 将实体availability设置为与模拟时间相同的时间间隔。
+      availability: new Cesium.TimeIntervalCollection([new Cesium.TimeInterval({
+        start: start,
+        stop: stop
+      })]),
+      position: entity1p,//计算实体位置属性
+      //基于位置移动自动计算方向.
+      orientation: new Cesium.VelocityOrientationProperty(entity1p),
+      //加载飞机模型
+      model: {
+        uri: 'img/3.jpg',
+        scale: 1000
+      },
+      //路径
+      path: {
+        resolution: 1,
+        material: new Cesium.PolylineGlowMaterialProperty({
+          glowPower: 0.1,
+          color: Cesium.Color.PINK
+        }),
+        width: 5
+      }
+    });
+
+    //差值器
+    entity1.position.setInterpolationOptions({
+      interpolationDegree: 5,
+      interpolationAlgorithm: Cesium.LagrangePolynomialApproximation
+    });
+  }
+
+  function startFunc() {
+    for (var i = 0; i < arrStates.length; i++) {
+      getStatePath(arrStates[i]);
+    }
+  }
+
 
   </script>
  </div>
