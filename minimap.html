@@ -162,12 +162,14 @@ displayFeat[prop] = feat[prop];
 return displayFeat;
 });
  
-// Write object as string with an indent of two spaces.
+/*// Write object as string with an indent of two spaces.
 document.getElementById('features').innerHTML = JSON.stringify(
 displayFeatures[0],
 null,
 2
 );
+
+ */
 
 	var r=confirm("查看留言"+displayFeatures[0]['id']);
 	if (r==true){
@@ -193,8 +195,55 @@ map.setFilter('six-highlight', [
 // Change the cursor to a pointer when the mouse is over the places layer.
 map.on('mouseenter', 'six-map', () => {
 map.getCanvas().style.cursor = 'pointer';
+	const features = map.queryRenderedFeatures(e.point,{layers: ['six-map']});
+
+// Limit the number of properties we're displaying for
+// legibility and performance
+	const displayProperties = [
+		'id',
+	];
+
+	const displayFeatures = features.map((feat) => {
+		const displayFeat = {};
+		displayProperties.forEach((prop) => {
+			displayFeat[prop] = feat[prop];
+		});
+		return displayFeat;
+	});
+
+// Write object as string with an indent of two spaces.
+	document.getElementById('features').innerHTML = JSON.stringify(
+			displayFeatures[0],
+			null,
+			2
+	);
 });
- 
+
+map.on('mousemove','six-map',(e)=>{
+			const features = map.queryRenderedFeatures(e.point,{layers: ['six-map']});
+
+// Limit the number of properties we're displaying for
+// legibility and performance
+			const displayProperties = [
+				'id'
+			];
+
+			const displayFeatures = features.map((feat) => {
+				const displayFeat = {};
+				displayProperties.forEach((prop) => {
+					displayFeat[prop] = feat[prop];
+				});
+				return displayFeat;
+			});
+
+// Write object as string with an indent of two spaces.
+			document.getElementById('features').innerHTML = JSON.stringify(
+					displayFeatures[0],
+					null,
+					2
+			);
+		});
+
 // Change it back to a pointer when it leaves.
 map.on('mouseleave', 'six-map', () => {
 map.getCanvas().style.cursor = '';
