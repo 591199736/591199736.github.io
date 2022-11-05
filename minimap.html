@@ -5,6 +5,7 @@
 	<title>Mapbox GLH Minimap</title>
 	<link href="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css" rel="stylesheet">
 	<script src="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js"></script>
+	<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 <style>
 body { margin: 0; padding: 0; }
 #map { position: absolute; top: 0; bottom: 0; width: 100%;height:100%; }
@@ -73,9 +74,9 @@ p {
 
 #features {
   top: 0;
-  height: 100px;
+  height: 70%;
   margin-top: 20px;
-  width: 250px;
+  width: 60%;
 }
 
 </style>
@@ -163,11 +164,18 @@ return displayFeat;
  
 // Write object as string with an indent of two spaces.
 document.getElementById('features').innerHTML = JSON.stringify(
-displayFeatures,
+displayFeatures[0],
 null,
 2
 );
 
+
+
+$(document).ready(function () {
+	window.location.href='kuaizhan/id1.html?Oid='+displayFeatures[0]['id'];
+	//$('.map-overlay').load('kuaizhan/id1.html?Oid=',{ "sid":displayFeatures[0]['id']});
+
+});
 //�����ɹ��ĸ���
 map.setFilter('six-highlight', [
 "match", [ "id" ],[features.properties.id], true, false
