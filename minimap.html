@@ -74,9 +74,9 @@ p {
 
 #features {
   top: 0;
-  height: 70%;
+  height: 15%;
   margin-top: 20px;
-  width: 60%;
+  width: 20%;
 }
 
 </style>
@@ -169,13 +169,19 @@ null,
 2
 );
 
+	var r=confirm("查看留言"+displayFeatures[0]['id']);
+	if (r==true){
+		x="你按下了\"确定\"按钮!";
+		$(document).ready(function () {
+			window.location.href='kuaizhan/id1.html?Oid='+displayFeatures[0]['id'];
+			//$('.map-overlay').load('kuaizhan/id1.html?Oid=',{ "sid":displayFeatures[0]['id']});
+		});
+	}
+	else{
+		x="你按下了\"取消\"按钮!";
+	}
 
 
-$(document).ready(function () {
-	window.location.href='kuaizhan/id1.html?Oid='+displayFeatures[0]['id'];
-	//$('.map-overlay').load('kuaizhan/id1.html?Oid=',{ "sid":displayFeatures[0]['id']});
-
-});
 //�����ɹ��ĸ���
 map.setFilter('six-highlight', [
 "match", [ "id" ],[features.properties.id], true, false
