@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh">
 <head>
 	<meta charset="utf-8">
-	<title>Mapbox GL Minimap</title>
+	<title>Mapbox GLH Minimap</title>
 	<link href="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css" rel="stylesheet">
 	<script src="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js"></script>
 <style>
@@ -27,13 +27,64 @@ body { margin: 0; padding: 0; }
     color: #fff;
     background:rgb(0,87,55);
     }
+body {
+  margin: 0;
+  padding: 0;
+}
+
+h2,
+h3 {
+  margin: 10px;
+  font-size: 18px;
+}
+
+h3 {
+  font-size: 16px;
+}
+
+p {
+  margin: 10px;
+}
+
+/**
+* Create a position for the map
+* on the page */
+#map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+/**
+* Set rules for how the map overlays
+* (information box and legend) will be displayed
+* on the page. */
+.map-overlay {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: #fff;
+  margin-right: 20px;
+  font-family: Arial, sans-serif;
+  overflow: auto;
+  border-radius: 3px;
+}
+
+#features {
+  top: 0;
+  height: 100px;
+  margin-top: 20px;
+  width: 250px;
+}
+
 </style>
 
 	<div id="map"></div>
 	<script type="text/javascript" src="mapboxgl-control-minimap.js"></script>
 	    <br>
     <button id="fly">Fly</button>
-
+	<div class='map-overlay' id='features'><h2>Hello World!</h2><div id='pd'><p><(O.o)></div></div>
 	<script type="text/javascript">
 
 		mapboxgl.accessToken = "pk.eyJ1IjoiNTkxMTk5NzM2IiwiYSI6ImNrdTB2Z2k2MDB5N24ycG93aDV1NDM3czIifQ.R0sRRZwgEDoEyZBF8F1NRA";	
@@ -42,7 +93,7 @@ body { margin: 0; padding: 0; }
 			style: "mapbox://styles/591199736/cla17g1pb000314s4rs9sp4uu",
 			center: [113.385,23.0686],
 			zoom: 18,
-			maxBounds:[113.377,23.06,113.391,23.076],
+			maxBounds:[113.377,23.059,113.391,23.076],
         		pitch: 15,
 	
 		});
@@ -93,8 +144,50 @@ navigator.geolocation.getCurrentPosition(success, error, options);
 });
 
 
+map.on('click', 'six-map', (e)=> {
+  const features = map.queryRenderedFeatures(e.point,{layers: ['six-map']});
+ 
+// Limit the number of properties we're displaying for
+// legibility and performance
+const displayProperties = [
+'id',
+];
+ 
+const displayFeatures = features.map((feat) => {
+const displayFeat = {};
+displayProperties.forEach((prop) => {
+displayFeat[prop] = feat[prop];
+});
+return displayFeat;
+});
+ 
+// Write object as string with an indent of two spaces.
+document.getElementById('features').innerHTML = JSON.stringify(
+displayFeatures,
+null,
+2
+);
 
+//�����ɹ��ĸ���
+map.setFilter('six-highlight', [
+"match", [ "id" ],[features.properties.id], true, false
+]);
+
+
+});
+
+// Change the cursor to a pointer when the mouse is over the places layer.
+map.on('mouseenter', 'six-map', () => {
+map.getCanvas().style.cursor = 'pointer';
+});
+ 
+// Change it back to a pointer when it leaves.
+map.on('mouseleave', 'six-map', () => {
+map.getCanvas().style.cursor = '';
+});
 	</script>
 
 </body>
 </html>
+
+
