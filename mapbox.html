@@ -2,7 +2,7 @@
 <html lang="zh">
 <head>
 <meta charset="utf-8">
-<title>Animate 3D buildings based on ambient sounds</title>
+<title>Where is Vex？</title>
 <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
 <link href="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css" rel="stylesheet">
 <script src="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js"></script>
@@ -24,6 +24,21 @@ body { margin: 0; padding: 0; }
             text-align: center;
             color: #fff;
             background:rgb(0,87,55);
+        }
+        .marker {
+            background-image: url('img/run.gif');
+            background-size: cover;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .mapboxgl-popup {
+            max-width: 200px;
+        }
+        .mapboxgl-popup-content {
+            text-align: center;
+            font-family: 'Open Sans', sans-serif;
         }
     </style>
 </head>
@@ -69,6 +84,7 @@ showUserHeading: true
 
 // Center the map on the coordinates of any clicked circle from the 'circle' layer.
 map.on('click', 'six-map', (e) => {
+    console.log(`A click event has occurred at ${e.lngLat}`);
 });
  
 // Change the cursor to a pointer when the it enters a feature in the 'circle' layer.
@@ -118,6 +134,48 @@ navigator.geolocation.getCurrentPosition(success, error, options);
 
 
 });
+
+
+
+
+
+        // create a HTML element for each feature
+    const el = document.createElement('div');
+    el.className = 'marker';
+    // Add a new Marker.
+    const marker = new mapboxgl.Marker(el).setPopup(
+        new mapboxgl.Popup({ offset: 25 }) // add popups
+            .setHTML(
+                `<h3>你点我！</h3><p>你居然点我！</p>`
+            )
+    );
+
+    // Define the animation.
+    function animateMarker(timestamp) {
+        const radius = 20;
+
+        /*
+        Update the data to a new position
+        based on the animation timestamp.
+        The divisor in the expression `timestamp / 1000`
+        controls the animation speed.
+        */
+        marker.setLngLat([
+            Math.cos(timestamp / 10000) * radius*3+50,
+            Math.sin(timestamp / 10000) * radius+40
+        ]);
+
+        /*
+        Ensure the marker is added to the map.
+        This is safe to call if it's already added.
+        */
+        marker.addTo(map);
+
+// Request the next frame of the animation.
+        requestAnimationFrame(animateMarker);
+    }
+    // Start the animation.
+    requestAnimationFrame(animateMarker);
 
 </script>
 
