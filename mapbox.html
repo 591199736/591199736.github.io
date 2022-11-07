@@ -22,11 +22,11 @@ body { margin: 0; padding: 0; }
             border-radius: 3px;
             font-size: 12px;
             text-align: center;
-            color: #fff;
-            background:rgb(0,87,55);
+            color: #000;
+            background: #2DFFF8FF;
         }
         .marker {
-            background-image: url('img/run.gif');
+            background-image: url('img/fly.gif');
             background-size: cover;
             width: 50px;
             height: 50px;
@@ -139,14 +139,14 @@ navigator.geolocation.getCurrentPosition(success, error, options);
 
 
 
-        // create a HTML element for each feature
+    // create a HTML element for each feature
     const el = document.createElement('div');
     el.className = 'marker';
     // Add a new Marker.
     const marker = new mapboxgl.Marker(el).setPopup(
         new mapboxgl.Popup({ offset: 25 }) // add popups
             .setHTML(
-                `<h3>你点我！</h3><p>你居然点我！</p>`
+                `<h3>你点我！</h3><iframe src="kuaizhan/cyQing.html"></iframe>"`
             )
     );
 
