@@ -161,8 +161,8 @@ navigator.geolocation.getCurrentPosition(success, error, options);
         controls the animation speed.
         */
         marker.setLngLat([
-            Math.cos(timestamp / 10000) * radius*3+50,
-            Math.sin(timestamp / 10000) * radius+40
+            Math.sin(timestamp / 10000) * radius*3+50,
+            Math.cos(-timestamp / 10000) * radius+40
         ]);
 
         /*
