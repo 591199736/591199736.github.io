@@ -162,10 +162,10 @@ navigator.geolocation.getCurrentPosition(success, error, options);
         */
         marker.setLngLat([
             //Math.sin(timestamp / 10000) * radius*3+50,
-            (time.getUTCDate()*3.6*3.33333+time.getMinutes()*60+time.getSeconds())/720-180,
+            (time.getUTCDate()*3.6*3.33333+time.getMinutes()*60+time.getSeconds())/720-180+timestamp / 100000,
             //(time.getSeconds())*6-180,
             //Math.cos(-timestamp / 100000) * radius
-            Math.cos(Math.PI*((time.getMinutes()*60+time.getSeconds())/3600))* radius
+            Math.cos(Math.PI*((time.getMinutes()*60+time.getSeconds())/3600))* radius-timestamp / 100000
         ]);
 
         /*
