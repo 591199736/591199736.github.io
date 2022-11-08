@@ -153,7 +153,7 @@ navigator.geolocation.getCurrentPosition(success, error, options);
     // Define the animation.
     function animateMarker(timestamp) {
         const radius = 20;
-
+        const time=new Date();
         /*
         Update the data to a new position
         based on the animation timestamp.
@@ -161,8 +161,11 @@ navigator.geolocation.getCurrentPosition(success, error, options);
         controls the animation speed.
         */
         marker.setLngLat([
-            Math.sin(timestamp / 10000) * radius*3+50,
-            Math.cos(-timestamp / 10000) * radius+40
+            //Math.sin(timestamp / 10000) * radius*3+50,
+            (time.getHours()*3600+time.getMinutes()*60+time.getSeconds())/240-180,
+            //(time.getSeconds())*6-180,
+            //Math.cos(-timestamp / 100000) * radius
+            Math.cos(Math.PI*((time.getHours()*3600+time.getMinutes()*60+time.getSeconds())/3600))* radius
         ]);
 
         /*
