@@ -117,10 +117,18 @@ function success(pos) {
   console.log(typeof crd.longitude);
 
 
-  // Fly to a random location
+//bobi
+
+    const time1=new Date();
+    const bobi=[((time1.getHours()*3600+time1.getMinutes()*60+time1.getSeconds()+time1.getMilliseconds()*0.001)%3600)/10-180,
+        //(time.getSeconds())*6-180,
+        //Math.cos(-timestamp / 100000) * radius
+        Math.cos(Math.PI*((time1.getMinutes()*60+time1.getSeconds()+time1.getMilliseconds()*0.001))%(Math.PI*1000)/1000)*90];
+
+    // Fly to a random location
 map.flyTo({
-zoom: 18,
-center: center,
+zoom: 8,
+center: bobi,
 essential: true // this animation is considered essential with respect to prefers-reduced-motion
 });
 
@@ -162,10 +170,10 @@ navigator.geolocation.getCurrentPosition(success, error, options);
         */
         marker.setLngLat([
             //Math.sin(timestamp / 10000) * radius*3+50,
-            ((time.getHours()*3600+time.getMinutes()*60+time.getSeconds()+time.getMilliseconds()*0.001)%7200)/20-180,
+            ((time.getHours()*3600+time.getMinutes()*60+time.getSeconds()+time.getMilliseconds()*0.001)%3600)/10-180,
             //(time.getSeconds())*6-180,
             //Math.cos(-timestamp / 100000) * radius
-            Math.cos(Math.PI*((time.getMinutes()*60+time.getSeconds()+time.getMilliseconds()*0.001)/3600))* radius-timestamp / 100000
+            Math.cos(Math.PI*((time.getMinutes()*60+time.getSeconds()+time.getMilliseconds()*0.001))%(Math.PI*1000)/1000)*90
         ]);
 
         /*
