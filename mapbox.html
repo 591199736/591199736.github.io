@@ -123,7 +123,7 @@ function success(pos) {
     const bobi=[((time1.getHours()*3600+time1.getMinutes()*60+time1.getSeconds()+time1.getMilliseconds()*0.001)%3600)/10-180,
         //(time.getSeconds())*6-180,
         //Math.cos(-timestamp / 100000) * radius
-        Math.cos(Math.PI*((time1.getMinutes()*60+time1.getSeconds()+time1.getMilliseconds()*0.001))%(Math.PI*1000)/1000)*90];
+        Math.cos(((time1.getMinutes()*60+time1.getSeconds()+time1.getMilliseconds()*0.001))%(Math.PI*1000)/1000)*60];
 
     // Fly to a random location
 map.flyTo({
@@ -173,7 +173,7 @@ navigator.geolocation.getCurrentPosition(success, error, options);
             ((time.getHours()*3600+time.getMinutes()*60+time.getSeconds()+time.getMilliseconds()*0.001)%3600)/10-180,
             //(time.getSeconds())*6-180,
             //Math.cos(-timestamp / 100000) * radius
-            Math.cos(Math.PI*((time.getMinutes()*60+time.getSeconds()+time.getMilliseconds()*0.001))%(Math.PI*1000)/1000)*90
+            Math.cos(((time.getMinutes()*60+time.getSeconds()+time.getMilliseconds()*0.001))%(Math.PI*1000)/1000)*60
         ]);
 
         /*
