@@ -66,7 +66,7 @@
 		bottom: 0;
 		right: 0;
 		background: #fff;
-		margin-right: 20px;
+		margin-right: 10px;
 		font-family: Arial, sans-serif;
 		overflow: auto;
 		border-radius: 3px;
@@ -75,24 +75,66 @@
 	#features {
 		top: 0;
 		height: 15%;
-		margin-top: 20px;
-		width: 20%;
+		margin-top: 120px;
+		width: 120px;
 	}
 
 	.marker {
 		background-image: url('img/run.gif');
 		background-size: cover;
-		width: 100px;
-		height: 100px;
+		width: 96px;
+		height: 87px;
 		border-radius: 50%;
 		cursor: pointer;
 	}
+	#menu {
+		background: #fff;
+		position: absolute;
+		z-index: 1;
+		top: 10px;
+		right: 10px;
+		border-radius: 3px;
+		width: 120px;
+		border: 1px solid rgba(0, 0, 0, 0.4);
+		font-family: 'Open Sans', sans-serif;
+	}
+
+	#menu a {
+		font-size: 13px;
+		color: #404040;
+		display: block;
+		margin: 0;
+		padding: 0;
+		padding: 10px;
+		text-decoration: none;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+		text-align: center;
+	}
+
+	#menu a:last-child {
+		border: none;
+	}
+
+	#menu a:hover {
+		background-color: #f8f8f8;
+		color: #404040;
+	}
+
+	#menu a.active {
+		background-color: #3887be;
+		color: #ffffff;
+	}
+
+	#menu a.active:hover {
+		background: #3074a4;
+	}
 </style>
 
+<nav id="menu"></nav>
 <div id="map"></div>
 <script type="text/javascript" src="mapboxgl-control-minimap.js"></script>
 <br>
-<button id="fly">Fly</button>
+<button id="fly">start</button>
 <div class='map-overlay' id='features'><h2>Hello World!</h2><div id='pd'><p><(O.o)></div></div>
 <script type="text/javascript">
 
@@ -104,7 +146,7 @@
 		zoom: 18,
 		maxBounds:[113.377,23.059,113.391,23.076],
 		pitch: 1,
-
+		minZoom:18,
 	});
 
 	map.on("load", function () {
@@ -144,7 +186,7 @@
 
 
 			// Fly to a random location
-			map.flyTo({
+			map.easeTo({
 //zoom: 19,
 				center: center,
 				essential: true // this animation is considered essential with respect to prefers-reduced-motion
@@ -183,7 +225,7 @@
 		const endp=e.lngLat;
 		const Mlng=mrkXY.lng-endp.lng;
 		const Mlat=mrkXY.lat-endp.lat;
-		const step=500;
+		const step=200;
 		let i = 0;
 
 		let ti;
@@ -273,12 +315,12 @@
 	});
 
 	map.on('mousemove','six-map',(e)=>{
-		const features = map.queryRenderedFeatures(e.point,{layers: ['six-map']});
+		const features = map.queryRenderedFeatures(e.point,{layers: ['six-map','poi-label']});
 
 // Limit the number of properties we're displaying for
 // legibility and performance
 		const displayProperties = [
-			'id'
+			'id','properties'
 		];
 
 		const displayFeatures = features.map((feat) => {
@@ -291,7 +333,7 @@
 
 // Write object as string with an indent of two spaces.
 		document.getElementById('features').innerHTML = JSON.stringify(
-				displayFeatures[0],
+				displayFeatures,
 				null,
 				2
 		);
@@ -302,6 +344,60 @@
 		map.getCanvas().style.cursor = '';
 	});
 
+
+	//menu
+	// After the last frame rendered before the map enters an "idle" state.
+	map.on('idle', () => {
+// If these two layers were not added to the map, abort
+		if (!map.getLayer('six-map') || !map.getLayer('poi-label')) {
+			return;
+		}
+
+// Enumerate ids of the layers.
+		const toggleableLayerIds = ['six-map', 'poi-label'];
+
+// Set up the corresponding toggle button for each layer.
+		for (const id of toggleableLayerIds) {
+// Skip layers that already have a button set up.
+			if (document.getElementById(id)) {
+				continue;
+			}
+
+// Create a link.
+			const link = document.createElement('a');
+			link.id = id;
+			link.href = '#';
+			link.textContent = id;
+			link.className = 'active';
+
+// Show or hide layer when the toggle is clicked.
+			link.onclick = function (e) {
+				const clickedLayer = this.textContent;
+				e.preventDefault();
+				e.stopPropagation();
+
+				const visibility = map.getLayoutProperty(
+						clickedLayer,
+						'visibility'
+				);
+
+// Toggle layer visibility by changing the layout object's visibility property.
+				if (visibility === 'visible') {
+					map.setLayoutProperty(clickedLayer, 'visibility', 'none');
+					this.className = '';
+				} else {
+					this.className = 'active';
+					map.setLayoutProperty(
+							clickedLayer,
+							'visibility',
+							'visible'
+					);
+				}
+			};
+			const layers = document.getElementById('menu');
+			layers.appendChild(link);
+		}
+	});
 </script>
 
 </body>
