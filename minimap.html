@@ -159,13 +159,18 @@
 
 	//定位
 	let mrkXY;//储存波比的位置
-	let marker;
+	//let marker;
 	// create a HTML element for each feature
 	const el = document.createElement('div');
 	el.className = 'marker';
 	// Add a new Marker.
-	marker = new mapboxgl.Marker(el);
-
+	//marker = new mapboxgl.Marker(el);
+	const marker = new mapboxgl.Marker(el).setPopup(
+			new mapboxgl.Popup({ offset: 25 }) // add popups
+					.setHTML(
+							`<h3>你点到我了！</h3>`
+					)
+	);
 	document.getElementById('fly').addEventListener('click', () => {
 		const options = {
 			enableHighAccuracy: true,
