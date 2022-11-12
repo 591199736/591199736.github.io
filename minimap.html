@@ -6,226 +6,212 @@
 	<link href="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.css" rel="stylesheet">
 	<script src="https://api.mapbox.com/mapbox-gl-js/v2.10.0/mapbox-gl.js"></script>
 	<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-<style>
-body { margin: 0; padding: 0; }
-#map { position: absolute; top: 0; bottom: 0; width: 100%;height:100%; }
-</style>
+	<style>
+		body { margin: 0; padding: 0; }
+		#map { position: absolute; top: 0; bottom: 0; width: 100%;height:100%; }
+	</style>
 </head>
 <body>
 
 <style>
-    #fly {
-    display: block;
-    position: relative;
-    margin: 0px auto;
-    width: 30%;
-    height: 40px;
-    padding: 10px;
-    border: none;
-    border-radius: 3px;
-    font-size: 12px;
-    text-align: center;
-    color: #fff;
-    background:rgb(0,87,55);
-    }
-body {
-  margin: 0;
-  padding: 0;
-}
+	#fly {
+		display: block;
+		position: relative;
+		margin: 0px auto;
+		width: 30%;
+		height: 40px;
+		padding: 10px;
+		border: none;
+		border-radius: 3px;
+		font-size: 12px;
+		text-align: center;
+		color: #fff;
+		background:rgb(0,87,55);
+	}
+	body {
+		margin: 0;
+		padding: 0;
+	}
 
-h2,
-h3 {
-  margin: 10px;
-  font-size: 18px;
-}
+	h2,
+	h3 {
+		margin: 10px;
+		font-size: 18px;
+	}
 
-h3 {
-  font-size: 16px;
-}
+	h3 {
+		font-size: 16px;
+	}
 
-p {
-  margin: 10px;
-}
+	p {
+		margin: 10px;
+	}
 
-/**
-* Create a position for the map
-* on the page */
-#map {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 100%;
-}
+	/**
+    * Create a position for the map
+    * on the page */
+	#map {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: 100%;
+	}
 
-/**
-* Set rules for how the map overlays
-* (information box and legend) will be displayed
-* on the page. */
-.map-overlay {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  background: #fff;
-  margin-right: 20px;
-  font-family: Arial, sans-serif;
-  overflow: auto;
-  border-radius: 3px;
-}
+	/**
+    * Set rules for how the map overlays
+    * (information box and legend) will be displayed
+    * on the page. */
+	.map-overlay {
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		background: #fff;
+		margin-right: 20px;
+		font-family: Arial, sans-serif;
+		overflow: auto;
+		border-radius: 3px;
+	}
 
-#features {
-  top: 0;
-  height: 15%;
-  margin-top: 20px;
-  width: 20%;
-}
+	#features {
+		top: 0;
+		height: 15%;
+		margin-top: 20px;
+		width: 20%;
+	}
 
+	.marker {
+		background-image: url('img/run.gif');
+		background-size: cover;
+		width: 100px;
+		height: 100px;
+		border-radius: 50%;
+		cursor: pointer;
+	}
 </style>
 
-	<div id="map"></div>
-	<script type="text/javascript" src="mapboxgl-control-minimap.js"></script>
-	    <br>
-    <button id="fly">Fly</button>
-	<div class='map-overlay' id='features'><h2>Hello World!</h2><div id='pd'><p><(O.o)></div></div>
-	<script type="text/javascript">
+<div id="map"></div>
+<script type="text/javascript" src="mapboxgl-control-minimap.js"></script>
+<br>
+<button id="fly">Fly</button>
+<div class='map-overlay' id='features'><h2>Hello World!</h2><div id='pd'><p><(O.o)></div></div>
+<script type="text/javascript">
 
-		mapboxgl.accessToken = "pk.eyJ1IjoiNTkxMTk5NzM2IiwiYSI6ImNrdTB2Z2k2MDB5N24ycG93aDV1NDM3czIifQ.R0sRRZwgEDoEyZBF8F1NRA";	
-             const map = new mapboxgl.Map({
-			container: "map",
-			style: "mapbox://styles/591199736/cla17g1pb000314s4rs9sp4uu",
-			center: [113.385,23.0686],
-			zoom: 18,
-			maxBounds:[113.377,23.059,113.391,23.076],
-        		pitch: 15,
-	
-		});
+	mapboxgl.accessToken = "pk.eyJ1IjoiNTkxMTk5NzM2IiwiYSI6ImNrdTB2Z2k2MDB5N24ycG93aDV1NDM3czIifQ.R0sRRZwgEDoEyZBF8F1NRA";
+	const map = new mapboxgl.Map({
+		container: "map",
+		style: "mapbox://styles/591199736/cla17g1pb000314s4rs9sp4uu",
+		center: [113.385,23.0686],
+		zoom: 18,
+		maxBounds:[113.377,23.059,113.391,23.076],
+		pitch: 1,
 
-		map.on("load", function () {
-			map.addControl(new mapboxgl.Minimap({
-        		center: [113.386,23.0671],
-        		zoom: 14,
-        		zoomLevels: []
-      			}), 'top-left');
-		});
-
-	document.getElementById('fly').addEventListener('click', () => {
-    const options = {
-  enableHighAccuracy: true,
-  timeout: 5000,
-  maximumAge: 0
-};
-
-function success(pos) {
-  const crd = pos.coords;
-  const center={lat:crd.latitude, lng:crd.longitude};
-
-  console.log('Your current position is:');
-  console.log(`Latitude : ${crd.latitude}`);
-  console.log(`Longitude: ${crd.longitude}`);
-  console.log(`More or less ${crd.accuracy} meters.`);
-  console.log(typeof center);
-  console.log(typeof crd.longitude);
-
-
-  // Fly to a random location
-map.flyTo({
-zoom: 19,
-center: center,
-essential: true // this animation is considered essential with respect to prefers-reduced-motion
-});
-
-}
-
-function error(err) {
-  console.warn(`ERROR(${err.code}): ${err.message}`);
-}
-
-navigator.geolocation.getCurrentPosition(success, error, options);
-
-
-});
-
-
-map.on('click', 'six-map', (e)=> {
-  const features = map.queryRenderedFeatures(e.point,{layers: ['six-map']});
- 
-// Limit the number of properties we're displaying for
-// legibility and performance
-const displayProperties = [
-'id',
-];
- 
-const displayFeatures = features.map((feat) => {
-const displayFeat = {};
-displayProperties.forEach((prop) => {
-displayFeat[prop] = feat[prop];
-});
-return displayFeat;
-});
- 
-/*// Write object as string with an indent of two spaces.
-document.getElementById('features').innerHTML = JSON.stringify(
-displayFeatures[0],
-null,
-2
-);
-
- */
-
-	var r=confirm("查看留言"+displayFeatures[0]['id']);
-	if (r==true){
-		x="你按下了\"确定\"按钮!";
-		$(document).ready(function () {
-			window.location.href='kuaizhan/id1.html?Oid='+displayFeatures[0]['id'];
-			//$('.map-overlay').load('kuaizhan/id1.html?Oid=',{ "sid":displayFeatures[0]['id']});
-		});
-	}
-	else{
-		x="你按下了\"取消\"按钮!";
-	}
-
-
-//�����ɹ��ĸ���
-map.setFilter('six-highlight', [
-"match", [ "id" ],[features.properties.id], true, false
-]);
-
-
-});
-
-// Change the cursor to a pointer when the mouse is over the places layer.
-map.on('mouseenter', 'six-map', () => {
-map.getCanvas().style.cursor = 'pointer';
-	const features = map.queryRenderedFeatures(e.point,{layers: ['six-map']});
-
-// Limit the number of properties we're displaying for
-// legibility and performance
-	const displayProperties = [
-		'id',
-	];
-
-	const displayFeatures = features.map((feat) => {
-		const displayFeat = {};
-		displayProperties.forEach((prop) => {
-			displayFeat[prop] = feat[prop];
-		});
-		return displayFeat;
 	});
 
-// Write object as string with an indent of two spaces.
-	document.getElementById('features').innerHTML = JSON.stringify(
-			displayFeatures[0],
-			null,
-			2
-	);
-});
+	map.on("load", function () {
+		map.addControl(new mapboxgl.Minimap({
+			center: [113.386,23.0671],
+			zoom: 14,
+			zoomLevels: []
+		}), 'top-left');
+	});
 
-map.on('mousemove','six-map',(e)=>{
-			const features = map.queryRenderedFeatures(e.point,{layers: ['six-map']});
+	//定位
+	let mrkXY;//储存波比的位置
+	let marker;
+	// create a HTML element for each feature
+	const el = document.createElement('div');
+	el.className = 'marker';
+	// Add a new Marker.
+	marker = new mapboxgl.Marker(el);
+
+	document.getElementById('fly').addEventListener('click', () => {
+		const options = {
+			enableHighAccuracy: true,
+			timeout: 5000,
+			maximumAge: 0
+		};
+//获取位置center
+		function success(pos) {
+			const crd = pos.coords;
+			const center={lat:crd.latitude, lng:crd.longitude};
+
+			console.log('Your current position is:');
+			console.log(`Latitude : ${crd.latitude}`);
+			console.log(`Longitude: ${crd.longitude}`);
+			console.log(`More or less ${crd.accuracy} meters.`);
+			console.log(typeof center);
+			console.log(typeof crd.longitude);
+
+
+			// Fly to a random location
+			map.flyTo({
+//zoom: 19,
+				center: center,
+				essential: true // this animation is considered essential with respect to prefers-reduced-motion
+			});
+
+//加载图片
+			mrkXY=center;
+// create a HTML element for each feature
+			const el = document.createElement('div');
+			el.className = 'marker';
+			// Add a new Marker.
+
+			marker.setLngLat(mrkXY);
+
+			/*
+            Ensure the marker is added to the map.
+            This is safe to call if it's already added.
+            */
+			marker.addTo(map);
+		}
+
+		function error(err) {
+			console.warn(`ERROR(${err.code}): ${err.message}`);
+		}
+
+		navigator.geolocation.getCurrentPosition(success, error, options);
+
+
+	});
+
+
+	map.on('click', 'six-map', (e)=> {
+		const features = map.queryRenderedFeatures(e.point,{layers: ['six-map']});
+		//波比移动
+		const startp=mrkXY;
+		const endp=e.lngLat;
+		const Mlng=mrkXY.lng-endp.lng;
+		const Mlat=mrkXY.lat-endp.lat;
+		const step=500;
+		let i = 0;
+
+		let ti;
+		function timedCount() {
+			if (i<step){
+				const segment = [startp.lng-i*Mlng/step, startp.lat-i*Mlat/step];
+				mrkXY=segment;
+				//暂停
+				marker.setLngLat(segment);
+				i=i+1;
+				ti = setTimeout(function(){ timedCount() }, 1);
+			}
+			else {
+				mrkXY=endp;
+				chat();
+			}
+		}
+
+		timedCount();
+
+
+
+		function chat() {
 
 // Limit the number of properties we're displaying for
 // legibility and performance
 			const displayProperties = [
-				'id'
+				'id',
 			];
 
 			const displayFeatures = features.map((feat) => {
@@ -236,21 +222,87 @@ map.on('mousemove','six-map',(e)=>{
 				return displayFeat;
 			});
 
-// Write object as string with an indent of two spaces.
-			document.getElementById('features').innerHTML = JSON.stringify(
-					displayFeatures[0],
-					null,
-					2
-			);
+			/*// Write object as string with an indent of two spaces.
+    document.getElementById('features').innerHTML = JSON.stringify(
+    displayFeatures[0],
+    null,
+    2
+    );
+
+     */
+
+			var r = confirm("查看留言" + displayFeatures[0]['id']);
+			if (r == true) {
+				x = "你按下了\"确定\"按钮!";
+				$(document).ready(function () {
+					window.location.href = 'kuaizhan/id1.html?Oid=' + displayFeatures[0]['id'];
+					//$('.map-overlay').load('kuaizhan/id1.html?Oid=',{ "sid":displayFeatures[0]['id']});
+				});
+			} else {
+				x = "你按下了\"取消\"按钮!";
+			}
+		}
+
+	});
+
+	// Change the cursor to a pointer when the mouse is over the places layer.
+	map.on('mouseenter', 'six-map', () => {
+		map.getCanvas().style.cursor = 'pointer';
+		const features = map.queryRenderedFeatures(e.point,{layers: ['six-map']});
+
+// Limit the number of properties we're displaying for
+// legibility and performance
+		const displayProperties = [
+			'id',
+		];
+
+		const displayFeatures = features.map((feat) => {
+			const displayFeat = {};
+			displayProperties.forEach((prop) => {
+				displayFeat[prop] = feat[prop];
+			});
+			return displayFeat;
 		});
 
-// Change it back to a pointer when it leaves.
-map.on('mouseleave', 'six-map', () => {
-map.getCanvas().style.cursor = '';
-});
-	</script>
+// Write object as string with an indent of two spaces.
+		document.getElementById('features').innerHTML = JSON.stringify(
+				displayFeatures[0],
+				null,
+				2
+		);
+	});
+
+	map.on('mousemove','six-map',(e)=>{
+		const features = map.queryRenderedFeatures(e.point,{layers: ['six-map']});
+
+// Limit the number of properties we're displaying for
+// legibility and performance
+		const displayProperties = [
+			'id'
+		];
+
+		const displayFeatures = features.map((feat) => {
+			const displayFeat = {};
+			displayProperties.forEach((prop) => {
+				displayFeat[prop] = feat[prop];
+			});
+			return displayFeat;
+		});
+
+// Write object as string with an indent of two spaces.
+		document.getElementById('features').innerHTML = JSON.stringify(
+				displayFeatures[0],
+				null,
+				2
+		);
+	});
+
+	// Change it back to a pointer when it leaves.
+	map.on('mouseleave', 'six-map', () => {
+		map.getCanvas().style.cursor = '';
+	});
+
+</script>
 
 </body>
 </html>
-
-
