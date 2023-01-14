@@ -67,6 +67,7 @@
   <link rel="stylesheet" type="text/css" href="star/css/css1.css">
   <link rel="stylesheet" type="text/css" href="star/css/pop.css">
   <link rel="stylesheet" type="text/css" href="star/css/introduction.css">
+  <script src="//code.bdstatic.com/npm/leancloud-storage@4.13.2/dist/av-min.js"></script>
   <!--script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.1/dist/echarts.min.js"></script>不太理解为什么引入这个之后会出错-->
   <script>
     var RefreshSpeed=1000;//速率
@@ -160,7 +161,7 @@
     var clk_sp=false;
  function sp() {
    if (clk_sp == false) {
-     clk_sp = confirm("DNA点数的增加速率不会改变，是否继续？\ntips:多次调整速度有时会导致地图显示失效")
+     clk_sp = confirm("DNA点数的增加速率不会改变，是否继续？")
    }
    if (clk_sp) {
      RefreshSpeed = 1000 / document.getElementById('RfS').value;
@@ -181,6 +182,43 @@
       alert("不准读档");
     }
     function Ld() {
+
+    confirm("AV")
+    const { Query, User } = AV;
+    AV.init({
+      appId: "x7pqS7i0EZFoJWYWpfFhNEhl-gzGzoHsz",
+      appKey: "4yZSPiGPDFnwjflCSeqqsz87",
+      serverURL: "591199736.github.io/webgis/index.html",
+      //serverURL:"http://localhost:63342/webgis/index.html?_ijt=q6ja6rok6mjb3gf9ohh2qsjm74"
+    });
+
+    /*白名单
+    文件上传域名
+    upload.qiniup.com
+    使用文件上传功能时需要配置。
+    文件访问域名
+    lc-x7pqs7i0.cn-n1.lcfile.com
+    使用文件访问功能时需要配置。*/
+
+    //存进去
+    // 你还可以直接使用 AV.Object 的构造器
+    const todo = new AV.Object("Bugers");
+
+    // 为属性赋值
+    todo.set("name", "test2");
+    todo.set("allDead", 0);
+
+    // 将对象保存到云端
+    todo.save().then(
+            (todo) => {
+              // 成功保存之后，执行其他逻辑
+              console.log(`保存成功。objectId：${todo.id}`);
+            },
+            (error) => {
+              confirm("")
+              // 异常处理
+            }
+    );
       alert("不准存档");
     }
 
@@ -255,7 +293,7 @@
         if(dead[i]===population[i]){
           return "rgb(21,9,9)";
         }else{
-        const theColor=infected[i]/population[i]-dead[i];
+        const theColor=infected[i]/(population[i]-dead[i]);
         return "rgb(" + Math.round(theColor* 256) + "," + "0," + "0)";}
           //return "rgb(255,0,0)";}
       }
@@ -497,26 +535,14 @@
       // layer.refreshInterval = 0.1;
 
       //document.getElementsByClassName("top-left-title").innerHTML=Selecting;
-      //自动刷新地图
-      var refreshMap=setInterval(() => {
+      setInterval(() => {
   //for(i=0;i<206;i++){const living=Math.random()*population[i];infected[i]=Math.random()*living;dead[i]=population[i]-living;}
           layer.renderer = rend();
-          requestAnimationFrame(layer);
-          if(mediPercent>0){confirm(mediPercent)}
+          console.log("shuaxin+",lethality);
+          window.requestAnimationFrame(layer);
       }, 1000 );
       //如果需要条件判断可以用setTimeout+for循环
 
-      //手动刷新地图
-      function rfsMap(){
-        try{
-          clearInterval(refreshMap);//跳出循环
-          refreshMap=setInterval(() => {
-             layer.renderer = rend();
-             requestAnimationFrame(layer);
-              if(mediPercent>0){confirm(mediPercent)}
-          }, 1000 );
-        }catch(e){};
-      }
       view.when().then(() => {
                       // Create a default graphic for when the application starts
                       const graphic = {
@@ -962,7 +988,7 @@
       wd.b = allDead;
       cg.b = infected[36];//中国感染人数
       ag.b = infected[193];
-      yj, b = mediPercent;
+      yj. b = mediPercent;
       death.b = lethality;
       sss.b = serverity;
     }
@@ -1031,9 +1057,8 @@
         <iframe class="ifream1" src="./html/pie-simple.html"></iframe>
       </div>
       <div class="left-con public-bg">
-        <input id="RfS" type="number" min="1" max="100" step="1" value="1" style="margin-left: 15%;margin-top: 30px">
-        <button style="width: 40px;margin-left: 5px" onclick="sp()">倍速</button>
-      <button style="width: 100px;margin-left: 5px" onclick="rfsMap()">刷新地图</button></div>
+        <input id="RfS" type="number" min="1" max="100" step="1" value="1" style="margin-left: 25%;margin-top: 30px">
+        <button style="width: 40px;margin-left: 5px" onclick="sp()">倍速</button></div>
     </div>
 
     <div class="center-body">
@@ -1057,4 +1082,7 @@
   <!-- 弹窗 -->
 
 </body>
+
+
+</script>
 </html>
