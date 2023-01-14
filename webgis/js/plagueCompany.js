@@ -320,8 +320,8 @@ function pmain(){//main每时间单元循环步骤
 	if(mediPercent>100){
 		mediPercent=100;
 	}
-	if(allInfec>MaxInfe)
-	MaxInfe=allInfec
+	if(MaxInfe<allPopu-allHealth;){
+	MaxInfe=allPopu-allHealth;}
 		//游戏状态判断
 		if(allDead===allPopu)
 		{game=2;//玩家胜利
