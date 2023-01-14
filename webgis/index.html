@@ -67,7 +67,6 @@
   <link rel="stylesheet" type="text/css" href="star/css/css1.css">
   <link rel="stylesheet" type="text/css" href="star/css/pop.css">
   <link rel="stylesheet" type="text/css" href="star/css/introduction.css">
-  <script src="//code.bdstatic.com/npm/leancloud-storage@4.13.2/dist/av-min.js"></script>
   <!--script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.1/dist/echarts.min.js"></script>不太理解为什么引入这个之后会出错-->
   <script>
     var RefreshSpeed=1000;//速率
@@ -182,42 +181,7 @@
       alert("不准读档");
     }
     function Ld() {
-    confirm("AV");
-    const { Query, User } = AV;
-    AV.init({
-      appId: "x7pqS7i0EZFoJWYWpfFhNEhl-gzGzoHsz",
-      appKey: "4yZSPiGPDFnwjflCSeqqsz87",
-      serverURL: "591199736.github.io/webgis/index.html",
-      //serverURL:"http://localhost:63342/webgis/index.html?_ijt=q6ja6rok6mjb3gf9ohh2qsjm74"
-    });
-
-    /*白名单
-    文件上传域名
-    upload.qiniup.com
-    使用文件上传功能时需要配置。
-    文件访问域名
-    lc-x7pqs7i0.cn-n1.lcfile.com
-    使用文件访问功能时需要配置。*/
-
-    //存进去
-    // 你还可以直接使用 AV.Object 的构造器
-    const todo = new AV.Object("Bugers");
-
-    // 为属性赋值
-    todo.set("name", "test2");
-    todo.set("allDead", 0);
-
-    // 将对象保存到云端
-    todo.save().then(
-            (todo) => {
-              // 成功保存之后，执行其他逻辑
-              console.log(`保存成功。objectId：${todo.id}`);
-            },
-            (error) => {
-              confirm("")
-              // 异常处理
-            }
-    );
+   
       alert("不准存档");
     }
 
