@@ -176,9 +176,12 @@ function refreshInfeSpeed(i){
 
 //更新dieSpeed[i]
 function refreshDieSpeed(i){
+	try{
 	dieSpeed[i]=(lethality+serverity*0.1-5)/wealthy[i]*0.005;
 	if(dieSpeed[i]<0)
-		dieSpeed[i]=0;
+		dieSpeed[i]=0;}catch (e) {
+		confirm("5出错了");
+	}
 }
 
 
@@ -320,8 +323,8 @@ function pmain(){//main每时间单元循环步骤
 	if(mediPercent>100){
 		mediPercent=100;
 	}
-	if(MaxInfe<allPopu-allHealth;){
-	MaxInfe=allPopu-allHealth;}
+	if(allInfec>MaxInfe)
+	MaxInfe=allInfec
 		//游戏状态判断
 		if(allDead===allPopu)
 		{game=2;//玩家胜利
