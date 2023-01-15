@@ -177,9 +177,12 @@
    }
  }
     function st()
-    {clearInterval(runman);//跳出循环
+    {
+      DNApoint=$("#fDNA")[0].contentWindow.thevue.$data.availableCount;
+      clearInterval(runman);//跳出循环
     }
     function goOn() {
+      $("#fDNA")[0].contentWindow.thevue.$data.availableCount=DNApoint;
       runman = setInterval(() => {
         if (game == 1) {
           pmain();
