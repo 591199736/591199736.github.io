@@ -332,7 +332,8 @@ function pmain(){//main每时间单元循环步骤
 		else if(allInfec===0&&allPopu-allDead!== 0) {
 			game = 3;//人类胜利
 			if(allPopu-allDead<=allPopu*0.01){game=4;}//人类最后的希望！
-		}else if(year>2100){game=5;}
+		}
+	if(year>2100){game=5;}
 		//在这里放显示函数，或者get的函数，每一轮结束的时候刷新一次
 //	}
 
