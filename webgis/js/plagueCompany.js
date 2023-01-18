@@ -251,7 +251,7 @@ function pmain(){//main每时间单元循环步骤
 					//让它垮台!
 					if(dead[i]>=0.7*population[i]&&downfall[i]==0){
 						if(i==157){console.log("f"+population[157],dead[157],infected[157]);}
-						confirm(ename[i]+"垮台啦！")
+						console.log(ename[i]+"垮台啦！");
 						downfall[i]=1;
 						allDownfall++;
 					}
@@ -262,7 +262,6 @@ function pmain(){//main每时间单元循环步骤
 					wealthy[i]=0;
 					//还没死光
 					if(dead[i]<population[i]){
-						if(i==157){console.log("g"+population[157],dead[157],infected[157]);}
 						refreshDieSpeed(i);						//更新死亡速率
 						neighborInfect(i);						//邻域传染
 						//还没全部感染
