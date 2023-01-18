@@ -327,8 +327,7 @@ function pmain(){//main每时间单元循环步骤
 		//游戏状态判断
 		if(allDead>=allPopu)
 		{game=2;//玩家胜利
-			confirm("死完了")
-				 }
+		}
 		else if(allInfec===0&&allPopu-allDead!== 0) {
 			game = 3;//人类胜利
 			if(allPopu-allDead<=allPopu*0.01){game=4;}//人类最后的希望！
