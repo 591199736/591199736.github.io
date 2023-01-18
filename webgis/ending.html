@@ -129,7 +129,7 @@
       </div>
       </div>
   </div>
-  <div class="right_t">
+  <div class="right_t" style="color: #d8d8ea">
     <table id="table"style="color: ghostwhite"data-side-pagination="server">
       <thead>
       <tr>
@@ -218,7 +218,8 @@ todo.set('alltime', one);
   var data=[];
 //请求数据
   const query = new AV.Query('Bugers');
-  //query.limit(7);
+    query.descending('createdAt');
+  query.limit(6);
   query.find().then((bugers) => {
       for(i=0;i<bugers.length;i++){
         const Json={};
