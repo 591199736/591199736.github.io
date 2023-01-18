@@ -218,7 +218,7 @@ todo.set('alltime', one);
   var data=[];
 //请求数据
   const query = new AV.Query('Bugers');
-  query.limit(7);
+  //query.limit(7);
   query.find().then((bugers) => {
       for(i=0;i<bugers.length;i++){
         const Json={};
