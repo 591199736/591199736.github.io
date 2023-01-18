@@ -148,7 +148,7 @@ function goDie(i){
 //更新mediSpeed[i]
 function refreshMediSpeed(i){
 	//confirm("解药！"+mediSpeed[i]);
-	mediSpeed[i]=(lethality*wealthy[i]*4/serverity/antiMedi+infected[i]*0.0000000002)/10000;
+	mediSpeed[i]=(lethality*wealthy[i]*4/serverity/antiMedi+infected[i]*0.0000000002)/10000*(allHealth/allPopu);
 }
 /*//更新infeSpeed[i]
 function refreshInfeSpeed(i){
@@ -249,7 +249,7 @@ function pmain(){//main每时间单元循环步骤
 						tradeInfect(tradeFriend4[i-1]);
 					}
 					//让它垮台!
-					if(dead[i]>=0.7*population[i]&&downfall[i]===false){
+					if(dead[i]>=0.7*population[i]&&downfall[i]==0){
 						if(i==157){console.log("f"+population[157],dead[157],infected[157]);}
 						confirm(ename[i]+"垮台啦！")
 						downfall[i]=1;
