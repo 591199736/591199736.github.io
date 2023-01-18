@@ -148,7 +148,7 @@ function goDie(i){
 //更新mediSpeed[i]
 function refreshMediSpeed(i){
 	//confirm("解药！"+mediSpeed[i]);
-	mediSpeed[i]=(lethality*wealthy[i]*4/serverity/antiMedi+infected[i]*0.0000000002)/10000*(allHealth/allPopu);
+	mediSpeed[i]=(lethality*wealthy[i]*4/serverity/antiMedi+infected[i]*0.0000000002)/10000;
 }
 /*//更新infeSpeed[i]
 function refreshInfeSpeed(i){
