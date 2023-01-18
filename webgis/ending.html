@@ -133,9 +133,11 @@
     <table id="table"style="color: ghostwhite"data-side-pagination="server">
       <thead>
       <tr>
-        <th data-field="id" data-sortable="true">病毒名称</th>
-        <th data-field="name" data-sortable="true">传播天数</th>
-        <th data-field="price" data-sortable="true">感染人数</th>
+        <th data-field='name' data-sortable="true">病毒名称</th>
+        <th data-field='allDead' data-sortable="true">死亡人数</th>
+        <th data-field='allInf' data-sortable="true">感染人数</th>
+        <th data-field='allDownFall' data-sortable="true">倒台国家数</th>
+        <th data-field='alltime' data-sortable="true">传播天数</th>
       </tr>
       </thead>
     </table>
@@ -158,51 +160,55 @@
 <script src="https://unpkg.com/bootstrap-table@1.21.2/dist/bootstrap-table.min.js"></script>
 <script src="js/av.js"></script>
 <script>
-  
-</script>
-<script>
-  var $table = $('#table')
+  AV.init({
+    appId: "8214t07MY83hIE4Q9k4suzG1-MdYXbMMI",
+    appKey: "UFmhaKqYQSr9C7ACKp6FufzR",
+   // serverURL: "https://please-replace-with-your-customized.domain.com"
+  });
+/*  // 声明 class
+  const Todo = AV.Object.extend('Bugers');
 
-  $(function() {
-    var data = [
-      {
-        'id': '我',
-        'name': '想',
-        'price': '搞'
-      },
-      {
-        'id': '排',
-        'name': '行',
-        'price': '榜'
-      },
-      {
-        'id': '但',
-        'name': '是',
-        'price': '啊'
-      },
-      {
-        'id': '数',
-        'name': '据',
-        'price': '库'
-      },
-      {
-        'id': 'Bug',
-        'name': '了',
-        'price': '( •̀ ω •́ )y'
-      },
-      {
-        'id': 5,
-        'name': 'Item 5',
-        'price': '$5'
-      },
-      {
-        'id': 6,
-        'name': 'Item 5',
-        'price': '$5'
+  // 构建对象
+  const todo = new Todo();
+
+  // 为属性赋值
+  todo.set('UsersName','test2');
+  todo.set('allDead', 2);
+  todo.set('allDownFall', 2);
+  todo.set('allInf', 2);
+  todo.set('alltime', 2);
+
+  // 将对象保存到云端
+  todo.save().then((todo) => {
+    // 成功保存之后，执行其他逻辑
+    console.log(`保存成功。objectId：${todo.id}`);
+  }, (error) => {
+    confirm('数据同步失败');// 异常处理
+  });
+*/
+  var data=[];
+//请求数据
+  const query = new AV.Query('Bugers');
+  query.limit(7);
+  query.find().then((bugers) => {
+      for(i=0;i<bugers.length;i++){
+        const Json={};
+        Json['id']=i+1;
+        Json['name']=bugers[i].get('UsersName');
+        Json['allDead']=bugers[i].get('allDead');
+        Json['allInf']=bugers[i].get('allInf');
+        Json['allDownFall']=bugers[i].get('allDownFall');
+        Json['alltime']=bugers[i].get('alltime');
+        data.push(Json);
       }
-    ]
-    $table.bootstrapTable({data: data})
-  })
+    console.log("data",data);
+    var $table = $('#table')
+    $(function() {
+      $table.bootstrapTable({data: data})
+    })
+    // students 是包含满足条件的 Student 对象的数组
+  });
+
 </script>
 <script>
 
@@ -228,7 +234,7 @@ var game = 2;
   }
   if (game == 3) {
     $("#game1").html("结局2：欣欣向荣")
-    if(two<100000){$("#game2").html(window.name+"?谁啊没听过？")}
+    if(two<1000){$("#game2").html(window.name+"?谁啊没听过？")}
     else{$("#game2").html("人类是渺小的，但他们却总能一次次战胜困难，迎来新的希望！")}
   }
   if (game == 4) {
@@ -237,7 +243,7 @@ var game = 2;
   }
 if (game == 4) {
   $("#game1").html("结局4：百年好合")
-  $("#game2").html("呃，一百年过去了，从生物学的角度来看，"+window.name+"和人类达成了相爱相杀的共生关系？")
+  $("#game2").html("呃，从生物学的角度来看，"+window.name+"和人类达成了互利互惠的共生关系？哦，或许应该是相爱相杀")
 }
 
   var count = 0;
