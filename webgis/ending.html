@@ -162,11 +162,12 @@
 <script>
   var name = sessionStorage.getItem("name");
   var achieve = sessionStorage.getItem("achievement");
-  var one = sessionStorage.getItem("time");
-  var two = sessionStorage.getItem("allHealth");
-  var three = sessionStorage.getItem("allDead");
-  var four = sessionStorage.getItem("allDown");
-  var game = sessionStorage.getItem("game");
+  var one = Number(sessionStorage.getItem("time"));
+  var two = Number(sessionStorage.getItem("allHealth"));
+  var two = Number(sessionStorage.getItem("allHealth"));
+  var three = Number(sessionStorage.getItem("allDead"));
+  var four = Number(sessionStorage.getItem("allDown"));
+  var game = Number(sessionStorage.getItem("game"));
     
   AV.init({
     appId: "8214t07MY83hIE4Q9k4suzG1-MdYXbMMI",
