@@ -325,7 +325,7 @@ function pmain(){//main每时间单元循环步骤
 	if(allPopu-allHealth>MaxInfe)
 	MaxInfe=allPopu-allHealth;
 		//游戏状态判断
-		if(allDead===allPopu)
+		if(allDead>=allPopu)
 		{game=2;//玩家胜利
 			confirm("死完了")
 				 }
