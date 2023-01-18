@@ -160,7 +160,9 @@
 <script src="https://unpkg.com/bootstrap-table@1.21.2/dist/bootstrap-table.min.js"></script>
 <script src="js/av.js"></script>
 <script>
+
   var name = sessionStorage.getItem("name");
+  //var name = "未知名病毒";
   var achieve = sessionStorage.getItem("achievement");
   var one = Number(sessionStorage.getItem("time"));
   var two = Number(sessionStorage.getItem("allHealth"));
@@ -168,11 +170,21 @@
   var three = Number(sessionStorage.getItem("allDead"));
   var four = Number(sessionStorage.getItem("allDown"));
   var game = Number(sessionStorage.getItem("game"));
-    console.log("d",name,one,two,three,four)
+console.log("d",name,one,two,three,four)
+  /*
+var name = 1;
+var achieve = [1,1,1,1,1,1,1];
+var one = 9999;
+var two = 99;
+var three = 9;
+var game = 2;
+var four = 5;
+*/
+
   AV.init({
     appId: "8214t07MY83hIE4Q9k4suzG1-MdYXbMMI",
     appKey: "UFmhaKqYQSr9C7ACKp6FufzR",
-    serverURL: "https://591199736.github.io"
+   // serverURL: "https://please-replace-with-your-customized.domain.com"
   });
   // 声明 class
   const Todo = AV.Object.extend('Bugers');
@@ -180,13 +192,20 @@
   // 构建对象
   const todo = new Todo();
 
-        // 为属性赋值
-        todo.set('UsersName',name);
-        todo.set('allDead', three);
-        todo.set('allDownFall', four);
-        todo.set('allInf',two);
-        todo.set('alltime', one);
-
+ /* // 为属性赋值
+  todo.set('UsersName','test2');
+  todo.set('allDead', 2);
+  todo.set('allDownFall', 2);
+  todo.set('allInf', 2);
+  todo.set('alltime', 2);
+*/
+// 为属性赋值
+  if(name){
+todo.set('UsersName',name);}
+todo.set('allDead', three);
+todo.set('allDownFall', four);
+todo.set('allInf',two);
+todo.set('alltime', one);
   // 将对象保存到云端
   todo.save().then((todo) => {
     // 成功保存之后，执行其他逻辑
@@ -217,6 +236,9 @@
     })
     // students 是包含满足条件的 Student 对象的数组
   });
+
+</script>
+<script>
 
 
   if (game == 2) {
