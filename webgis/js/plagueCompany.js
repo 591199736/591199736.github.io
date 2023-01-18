@@ -63,6 +63,7 @@ function timePlus(){//时间递增函数,可以用他自带的对象Date，但�
 		month = month - 12;
 		year++;
 	}
+	if(year>2100){game=5;}
 	//var nowTime = myYear+'年'+fillZero(myMonth)+'月'+fillZero(myToday)+'日';
 	//nowTime就是要显示的东西
 }
@@ -332,7 +333,7 @@ function pmain(){//main每时间单元循环步骤
 			game = 3;//人类胜利
 			if(allPopu-allDead<=allPopu*0.01){game=4;}//人类最后的希望！
 		}
-	if(year>2100){game=5;}
+	
 		//在这里放显示函数，或者get的函数，每一轮结束的时候刷新一次
 //	}
 
