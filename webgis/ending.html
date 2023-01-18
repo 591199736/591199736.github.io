@@ -168,11 +168,11 @@
   var three = Number(sessionStorage.getItem("allDead"));
   var four = Number(sessionStorage.getItem("allDown"));
   var game = Number(sessionStorage.getItem("game"));
-    
+    console.log("d",name,one,two,three,four)
   AV.init({
     appId: "8214t07MY83hIE4Q9k4suzG1-MdYXbMMI",
     appKey: "UFmhaKqYQSr9C7ACKp6FufzR",
-    serverURL: "591199736.github.io"
+    serverURL: "https://591199736.github.io"
   });
   // 声明 class
   const Todo = AV.Object.extend('Bugers');
