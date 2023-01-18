@@ -67,6 +67,7 @@
   <link rel="stylesheet" type="text/css" href="star/css/css1.css">
   <link rel="stylesheet" type="text/css" href="star/css/pop.css">
   <link rel="stylesheet" type="text/css" href="star/css/introduction.css">
+
   <!--script type="text/javascript" src="https://fastly.jsdelivr.net/npm/echarts@5.4.1/dist/echarts.min.js"></script>不太理解为什么引入这个之后会出错-->
   <script>
     var RefreshSpeed=1000;//速率
@@ -143,7 +144,7 @@
     function gameEnd() {
       //将值存入sessionStorage中
       console.log("ach:",achievement);
-     
+
       alert("游戏结束，即将进入结算页面");
 
       if(allDead==0){achievement[6]=1;}
